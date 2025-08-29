@@ -7,7 +7,7 @@ import bpy
 
 """ Class representing a uniform (parameter) in an RDR2 shader """
 class RDR2ShaderUniformPropertyGroup(bpy.types.PropertyGroup):
-    data: bpy.props.FloatVectorProperty(name="Data", size=[8, 8])
+    data: bpy.props.FloatVectorProperty(name="Data", size=64)
 
 
 """ Class representing an RDR2 shader """
@@ -44,6 +44,7 @@ class OBJECT_PT_shader_view_panel(bpy.types.Panel):
                 for u in shader_json["uniforms"]:
                     uniform_item = shader_item.uniforms.add()
                     uniform_item.name = u["name"]
+                    uniform_item.data = u.get("data", [0.0] * 64)
                     
     @classmethod
     def poll(cls, context):
@@ -73,8 +74,8 @@ class OBJECT_PT_shader_view_panel(bpy.types.Panel):
          
         # Draw controls for editing the shader uniforms in the current material
         for u in context.scene.rdr2_shader_templates[2].uniforms:
-            col_right.label(text=u["name"])
-            col_left.label(text="placeholder")
+            col_right.label(text=u.name)
+            col_left.prop(u, "data")
  
             
 """ Module registration """
