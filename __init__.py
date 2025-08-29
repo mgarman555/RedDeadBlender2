@@ -4,8 +4,8 @@
 bl_info = {
     "name": "RedDeadBlend2",
     "author": "Gamma AKA Sage of Mirrors",
-    "version": (0, 0, 1),
-    "blender": (3, 0, 0),
+    "version": (0, 0, 2),
+    "blender": (4, 3, 0),
     "location": "File > Import/Export > RDR2",
     "description": "Import and export model files from RDR2 (.ydr, .ydd, .yft)",
     "wiki_url": "https://github.com/Sage-of-Mirrors/RedDeadBlend2",
