@@ -2,13 +2,13 @@
 
 """ Plugin info """
 bl_info = {
-    "name": "RedDeadBlend2",
-    "author": "Gamma AKA Sage of Mirrors",
-    "version": (0, 0, 1),
-    "blender": (3, 0, 0),
+    "name": "RedDeadBlender2",
+    "author": "Madi Garman",
+    "version": (1, 0, 0),
+    "blender": (3, 4, 0),
     "location": "File > Import/Export > RDR2",
     "description": "Import and export model files from RDR2 (.ydr, .ydd, .yft)",
-    "wiki_url": "https://github.com/Sage-of-Mirrors/RedDeadBlend2",
+    "wiki_url": "https://github.com/Sage-of-Mirrors/RedDeadBlend2", https://github.com/mgarman555/RedDeadBlender2
     "warning": "Work in Progress",
     "tracker_url": "https://github.com/Sage-of-Mirrors/RedDeadBlend2/issues",
     "category": "Import-Export",
