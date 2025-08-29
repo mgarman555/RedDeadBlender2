@@ -73,9 +73,13 @@ class OBJECT_PT_shader_view_panel(bpy.types.Panel):
         col_left.separator()
          
         # Draw controls for editing the shader uniforms in the current material
-        for u in context.scene.rdr2_shader_templates[2].uniforms:
-            col_right.label(text=u.name)
-            col_left.prop(u, "data")
+        shader = context.scene.rdr2_shader_templates.get(
+            context.material.rdr2_shader_template_enum
+        )
+        if shader:
+            for u in shader.uniforms:
+                col_right.label(text=u.name)
+                col_left.prop(u, "data", text="")
  
             
 """ Module registration """
