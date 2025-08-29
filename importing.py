@@ -8,7 +8,7 @@ from bpy.types import Operator
 from mathutils import Matrix, Vector, Quaternion
 
 try:
-    from . import pylibdrawable
+        import pylibdrawable
 except ImportError as exc:
     raise ImportError(
         "pylibdrawable module is required. Install PyLibDrawable or include it with the add-on."
