@@ -8,7 +8,7 @@ bl_info = {
     "blender": (4, 3, 0),
     "location": "File > Import/Export > RDR2",
     "description": "Import and export model files from RDR2 (.ydr, .ydd, .yft)",
-    "wiki_url": "https://github.com/Sage-of-Mirrors/RedDeadBlend2", https://github.com/mgarman555/RedDeadBlender2
+    "wiki_url": "https://github.com/Sage-of-Mirrors/RedDeadBlend2", "https://github.com/mgarman555/RedDeadBlender2"
     "warning": "Work in Progress",
     "tracker_url": "https://github.com/Sage-of-Mirrors/RedDeadBlend2/issues",
     "category": "Import-Export",
