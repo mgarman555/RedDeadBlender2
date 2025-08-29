@@ -1,6 +1,7 @@
 """ Contains types for handling RDR2 shaders. """
 
 import json
+import os
 import bpy
 
 
