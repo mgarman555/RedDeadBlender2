@@ -98,15 +98,30 @@ class Drawable():
                     geomMesh.update()
                     
                     # Add colors to mesh
-                    for color_index in range(4):
-                        print(color_index)
-                        vert_colors = geom.GetVertexColorArray(color_index)
-                        
+                    color_layer_count = 0
+                    if hasattr(geom, "GetColorCount"):
+                        try:
+                            color_layer_count = geom.GetColorCount()
+                        except Exception:
+                            color_layer_count = 0
+                    elif hasattr(geom, "ColorCount"):
+                        color_layer_count = geom.ColorCount
+                    elif hasattr(geom, "ColorsCount"):
+                        color_layer_count = geom.ColorsCount
+
+                    for color_index in range(color_layer_count):
+                        try:
+                            vert_colors = geom.GetVertexColorArray(color_index)
+                        except (AttributeError, IndexError):
+                            continue
+                        if not vert_colors:
+                            continue
+
                         color_layer_name = "color_" + str(color_index)
                         color_attr = geomMesh.color_attributes.new(color_layer_name, 'FLOAT_COLOR', 'POINT')
-                        
-                        for i in range(len(color_attr.data)):
-                            color_attr.data[i].color = vert_colors[i]
+
+                        for attr, color in zip(color_attr.data, vert_colors):
+                            attr.color = color
                     
                     # Add tex coords to mesh
                     for tex_coord_index in range(geom.TexCoordsCount):
