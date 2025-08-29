@@ -1,6 +1,5 @@
 """ Contains types for handling RDR2 shaders. """
 
-import os
 import json
 import bpy
 
@@ -26,25 +25,6 @@ class OBJECT_PT_shader_view_panel(bpy.types.Panel):
     bl_region_type = 'WINDOW'
     bl_context = "material"
     bl_order = 100
-    
-    def __init__(self):
-        scn = bpy.context.scene
-        if len(scn.rdr2_shader_templates) == 0:
-            data_path = os.path.dirname(__file__) + "/data/shaders"
-            shader_files = os.listdir(data_path)
-            
-            for p in shader_files:
-                shader_json = []
-                with open(data_path + "/" + p, encoding="utf-8") as f:
-                      shader_json = json.load(f)
-            
-                shader_item = scn.rdr2_shader_templates.add()
-                shader_item.name = shader_json["name"]
-                
-                for u in shader_json["uniforms"]:
-                    uniform_item = shader_item.uniforms.add()
-                    uniform_item.name = u["name"]
-                    uniform_item.data = u.get("data", [0.0] * 64)
                     
     @classmethod
     def poll(cls, context):
@@ -80,7 +60,33 @@ class OBJECT_PT_shader_view_panel(bpy.types.Panel):
             for u in shader.uniforms:
                 col_right.label(text=u.name)
                 col_left.prop(u, "data", text="")
- 
+
+
+def load_shader_templates():
+    """Populate the scene's shader templates from JSON files."""
+    scn = bpy.context.scene
+    if scn is None or len(scn.rdr2_shader_templates) != 0:
+        return
+
+    data_path = os.path.join(os.path.dirname(__file__), "data", "shaders")
+
+    try:
+        shader_files = os.listdir(data_path)
+    except OSError:
+        return
+
+    for filename in shader_files:
+        with open(os.path.join(data_path, filename), encoding="utf-8") as f:
+            shader_json = json.load(f)
+
+        shader_item = scn.rdr2_shader_templates.add()
+        shader_item.name = shader_json["name"]
+
+        for u in shader_json["uniforms"]:
+            uniform_item = shader_item.uniforms.add()
+            uniform_item.name = u["name"]
+            uniform_item.data = u.get("data", [0.0] * 64)
+
             
 """ Module registration """
 def register():
@@ -106,6 +112,7 @@ def register():
         type=RDR2ShaderPropertyGroup,
         name="Red Dead Redemption 2 Shader"
     )
+    load_shader_templates()
     
 
 """ Module unregistration """   
@@ -121,4 +128,3 @@ def unregister():
     # Clear uniform and shader property group classes
     bpy.utils.unregister_class(RDR2ShaderUniformPropertyGroup)
     bpy.utils.unregister_class(RDR2ShaderPropertyGroup)
-    
