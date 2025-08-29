@@ -7,7 +7,12 @@ from bpy.props import StringProperty, BoolProperty, EnumProperty, IntProperty, P
 from bpy.types import Operator
 from mathutils import Matrix, Vector, Quaternion
 
-from . import pylibdrawable
+try:
+    from . import pylibdrawable
+except ImportError as exc:
+    raise ImportError(
+        "pylibdrawable module is required. Install PyLibDrawable or include it with the add-on."
+    ) from exc
 
 
 class Drawable():
