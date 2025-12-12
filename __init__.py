@@ -2,7 +2,7 @@
 
 """ Plugin info """
 bl_info = {
-    "name": "RedDeadBlend2",
+    "name": "RedDeadBlender2",
     "author": "Madi Garman, mgarman555",
     "version": (1, 0, 0),
     "blender": (3, 2, 1),
